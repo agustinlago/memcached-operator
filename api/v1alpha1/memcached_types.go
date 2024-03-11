@@ -35,6 +35,10 @@ type MemcachedSpec struct {
 	// +kubebuilder:validation:Maximum=3
 	// +kubebuilder:validation:ExclusiveMaximum=false
 	Size int32 `json:"size,omitempty"`
+
+	// Port defines the port that will be used to init the container with the image
+	// +operator-sdk:csv:customresourcedefinitions:type=spec
+	ContainerPort int32 `json:"containerPort,omitempty"`
 }
 
 // MemcachedStatus defines the observed state of Memcached
@@ -46,8 +50,10 @@ type MemcachedStatus struct {
 	// condition types may define expected values and meanings for this field, and whether the values
 	// are considered a guaranteed API.
 	// Memcached.status.conditions.Message is a human readable message indicating details about the transition.
-	// For further information see: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#typical-status-properties
+	// For further information see: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#typical-status-propertie
 
+	// Conditions store the status conditions of the Memcached instances
+	// +operator-sdk:csv:customresourcedefinitions:type=status
 	Conditions []metav1.Condition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,1,rep,name=conditions"`
 }
 
@@ -55,6 +61,7 @@ type MemcachedStatus struct {
 //+kubebuilder:subresource:status
 
 // Memcached is the Schema for the memcacheds API
+// +kubebuilder:subresource:status
 type Memcached struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`

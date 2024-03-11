@@ -34,6 +34,11 @@ spec:
           spec:
             description: MemcachedSpec defines the desired state of Memcached
             properties:
+              containerPort:
+                description: Port defines the port that will be used to init the container
+                  with the image
+                format: int32
+                type: integer
               size:
                 description: 'Size defines the number of Memcached instances The following
                   markers will use OpenAPI v3 schema to validate the value More info:
@@ -47,6 +52,8 @@ spec:
             description: MemcachedStatus defines the observed state of Memcached
             properties:
               conditions:
+                description: Conditions store the status conditions of the Memcached
+                  instances
                 items:
                   description: "Condition contains details for one aspect of the current
                     state of this API Resource. --- This struct is intended for direct

@@ -382,6 +382,10 @@ func (r *MemcachedReconciler) deploymentForMemcached(
 								},
 							},
 						},
+						Ports: []corev1.ContainerPort{{
+							ContainerPort: memcached.Spec.ContainerPort,
+							Name:          "memcached",
+						}},
 						Command: []string{"memcached", "-m=64", "modern", "-v"},
 					}},
 				},
